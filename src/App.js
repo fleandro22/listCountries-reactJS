@@ -7,30 +7,30 @@ const listNombres = [
   'No hay registros',
 ];
 
-
 function App() {
   const [value, setvalue] = useState(listNombres);
-  const [query, setquery] = useState('')
+  const [searchCountry, setSearchCountry] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(function(){
     
-    getCountries().then(countrie => setvalue(countrie))
-    
-  }, []);
+    getCountries().then(country => setvalue(country))
+
+    const results = value.filter(keycontry =>
+      keycontry.name && keycontry.name.toLowerCase().includes(searchCountry)
+    );
+
+    setSearchResults(results); 
+  }, [searchCountry]);
 
   
-
-  const filteredCountries = value.filter( countriee => {
-    return countriee.name && countriee.name.toLowerCase().includes(query)
-  });
-
   return (
     <div className="App">
       <section className="App-container">
-      <input  type="text" placeholder="Search countries" value={query} onChange={(e) => {
-            setquery(e.target.value)
+      <input  type="text" placeholder="Search countries" value={searchCountry} onChange={(e) => {
+            setSearchCountry(e.target.value);
       }}/> 
-        <ListCountries value = {filteredCountries}/>
+        <ListCountries value = {searchResults}/>
         
       </section>
     </div>

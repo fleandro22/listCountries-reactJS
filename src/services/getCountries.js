@@ -13,7 +13,7 @@ function getCountries(){
         return {numericCode,name,flag}
       })
 
-    return countries
+    return data
   })
 
 }
